@@ -1,0 +1,45 @@
+<MainScreen>
+    MDBackdrop:
+        id: backdrop
+        left_action_items: [['menu', lambda x: self.open(0)]]
+        title: "LAND"
+        radius_left: "0dp"
+        radius_right: "25dp"
+        header_text:''
+        header_color:1,1,1,1
+        front_layer_color:app.theme_cls.primary_light if app.theme_cls.theme_style != "Dark" else app.theme_cls.primary_dark
+        MDBackdropBackLayer:
+
+        MDBackdropFrontLayer:
+            MDBoxLayout:
+                spacing:15
+                MDNavigationRail:
+                    radius:[0,25,0,0]
+                    text_color_item_normal:[1,1,1,1] if app.theme_cls.theme_style == "Dark" else [0,0,0,1]
+                    text_color_item_active:[1,1,1,1] if app.theme_cls.theme_style == "Dark" else [0,0,0,1]
+                    icon_color_item_normal:[1,1,1,1] if app.theme_cls.theme_style == "Dark" else [0,0,0,1]
+                    icon_color_item_active:[1,1,1,1] if app.theme_cls.theme_style == "Dark" else [0,0,0,1]
+                    md_bg_color:app.theme_cls.bg_dark
+                    MDNavigationRailItem:
+                        id:btn1 
+                        text: ''
+                        icon: "home"
+                    
+                    MDNavigationRailItem:
+                        id:btn2
+                        text: ''
+                        icon: "account"
+                    MDNavigationRailItem:
+                        id:btn3
+                        text: ''
+                        icon: "account-group"
+                    MDNavigationRailItem:
+                        id:btn4
+                        text: ''
+                        icon: "cog"         
+                        on_release:
+                    MDScreen:
+                        size_hint_y: None
+                        height: 45
+                MDBoxLayout:        
+                    id:back
