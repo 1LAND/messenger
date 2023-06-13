@@ -1,0 +1,201 @@
+<SingInScreen>
+    BoxLayout:
+        orientation:'vertical'
+        spacing:10
+        MDTextField:
+            id:login
+            pos_hint:{'center_x':0.5,'center_y':0.5}
+            size_hint:0.7,None
+            hint_text: app.language['en']['singIn_input1'] if  app.app_language == 'en' else app.language['rus']['singIn_input1']
+            mode: "fill"
+            icon_left:'account-circle'   
+            fill_color_normal:[1,1,1,1]
+        MDTextField:
+            id:password
+            pos_hint:{'center_x':0.5,'center_y':0.5}
+            size_hint:None,None
+            width:login.width
+            hint_text: app.language['en']['singIn_input2'] if app.app_language == 'en' else app.language['rus']['singIn_input2']
+            mode: login.mode
+            icon_left:'lock'      
+            fill_color_normal:login.fill_color_normal
+        MDRectangleFlatButton:
+            id: btn1
+            pos_hint:{'center_x':0.5,'center_y':0.5}
+            size_hint_x:0.7
+            text:  app.language['en']['singIn_btn1'] if app.app_language == 'en' else app.language['rus']['singIn_btn1']
+            on_release:root.on_sing_in()
+            text_color: login.fill_color_normal
+            line_color: login.fill_color_normal
+        MDTextButton:
+            id: btn2
+            text: app.language['en']['singIn_btn2'] if app.app_language == 'en' else app.language['rus']['singIn_btn2'] +'*'
+            custom_color: login.fill_color_normal
+            size_hint_x:0.7
+            pos_hint:{'center_x':0.5,'center_y':0.5}   
+<ShatScreen>
+    BoxLayout:
+        orientation:'vertical'
+        MDScrollView:
+            size_hint:1,1
+            BoxLayout:
+                orientation:'vertical'
+                padding:'10dp'
+                spacing:5
+                id: box                 
+                size_hint_y:None
+        MDBoxLayout:              
+            padding: ('10dp', '0dp', '0dp', '0dp')   
+            size_hint_y:None
+            height:text_message.height
+            MDTextField:
+                id:text_message
+                hint_text:app.language['en']['shat_input1'] if app.app_language == 'en' else app.language['rus']['shat_input1']
+                line_color_normal:app.theme_cls.bg_normal
+                hint_text_color_normal: app.theme_cls.bg_normal
+            MDIconButton:
+                icon:'arch'
+                theme_icon_color: "Custom"
+                icon_color:app.theme_cls.bg_normal
+                on_release:root.create_message(True,text_message.text)
+
+<SettingScreen>
+    ScrollView:      
+        MDList:
+            radius:25
+            md_bg_color:app.theme_cls.bg_normal
+            OneLineAvatarIconListItem:
+                id: btn1
+                text: app.language['en']['setting_btn1_1'] if app.app_language == 'en' else app.language['rus']['setting_btn1_1']
+                theme_text_color: "Custom"
+                text_color:[1,1,1,1] if app.theme_cls.theme_style == "Dark" else [0,0,0,1]
+                on_release: 
+                    app.theme_cls.theme_style="Light" if app.theme_cls.theme_style == "Dark" else "Dark"
+                    id_icon.icon = "lightbulb-on" if id_icon.icon == "lightbulb-off" else "lightbulb-off"
+                    btn1.text = (app.language['en']['setting_btn1_1'] if app.app_language == 'en' else app.language['rus']['setting_btn1_1']) if btn1.text == (app.language['en']['setting_btn1_2'] if app.app_language == 'en' else app.language['rus']['setting_btn1_2'])else (app.language['en']['setting_btn1_2'] if app.app_language == 'en' else app.language['rus']['setting_btn1_2'])
+                    root.theme_style_message()
+                IconLeftWidget:
+                    id:id_icon
+                    icon: "lightbulb-on"
+                    pos_hint: {'center_x': 0.05, 'center_y': .5}
+                    theme_text_color: "Custom"
+                    text_color:[1,1,1,1] if app.theme_cls.theme_style == "Dark" else [0,0,0,1]
+            OneLineAvatarIconListItem:
+                id: btn2
+                text: app.language['en']['setting_btn2'] if app.app_language == 'en' else app.language['rus']['setting_btn2']
+                theme_text_color: "Custom"
+                text_color:app.theme_cls.primary_light if app.theme_cls.theme_style == "Dark" else app.theme_cls.primary_dark
+                on_release:root.theme_style()
+                IconLeftWidget:
+                    theme_text_color: "Custom"
+                    text_color:app.theme_cls.primary_light if app.theme_cls.theme_style == "Dark" else app.theme_cls.primary_dark
+                    icon:'account-edit'            
+            OneLineAvatarIconListItem:
+                id: btn3
+                text: app.language['en']['setting_btn3'] if app.app_language == 'en' else app.language['rus']['setting_btn3']
+                theme_text_color: "Custom"
+                text_color:[1,1,1,1] if app.theme_cls.theme_style == "Dark" else [0,0,0,1]
+                on_release: 
+                    app.add(False,'singin')
+                IconLeftWidget:
+                    icon:'login'
+                    theme_text_color: "Custom"
+                    text_color:[1,1,1,1] if app.theme_cls.theme_style == "Dark" else [0,0,0,1]
+            OneLineAvatarIconListItem:
+                id: btn4
+                text: app.language['en']['setting_btn4'] if app.app_language == 'en' else app.language['rus']['setting_btn4']
+                theme_text_color: "Custom"
+                text_color:[1,1,1,1] if app.theme_cls.theme_style == "Dark" else [0,0,0,1]
+                on_release: root.swith_app_language()
+                IconLeftWidget:
+                    icon:'comment'
+                    theme_text_color: "Custom"
+                    text_color:[1,1,1,1] if app.theme_cls.theme_style == "Dark" else [0,0,0,1]
+
+<ContactsScreen>
+    MDBoxLayout:
+        pos_hint:{'top':1}
+        orientation:'vertical'
+        padding:'10dp'
+        md_bg_color:app.theme_cls.bg_normal
+        radius:25
+        adaptive_height: True
+        MDBoxLayout:
+            adaptive_height: True
+            MDIconButton:
+                id:magnify
+                icon: 'magnify'
+                theme_icon_color: "Custom"
+                text_color:[1,1,1,1] if app.theme_cls.theme_style == "Dark" else [0,0,0,1]
+                pos_hint:{'top':.8}
+            MDTextField:
+                id: search_field
+                hint_text: 'id/name:'
+                line_color_normal:app.theme_cls.primary_light
+                hint_text_color_normal: app.theme_cls.bg_normal
+                line_color_focus: app.theme_cls.primary_dark
+                hint_text_color_normal: app.theme_cls.primary_dark
+                text_color_normal: [1,1,1,1] if app.theme_cls.theme_style == "Dark" else [0,0,0,1]
+                on_focus: 
+                    magnify.text_color = app.theme_cls.primary_dark if magnify.text_color != app.theme_cls.primary_dark else [1,1,1,1] if app.theme_cls.theme_style == "Dark" else [0,0,0,1]
+        MDScrollView:
+            MDBoxLayout:
+                adaptive_height: True
+                orientation:'vertical'
+                padding:'10dp'
+                spacing:
+                id: box                 
+                size_hint_y:None
+
+<MainScreen>
+    MDBackdrop:
+        id: backdrop
+        left_action_items: [['menu', lambda x: self.open(0)]]
+        title: "LAND"
+        radius_left: "0dp"
+        radius_right: "25dp"
+        header_text:''
+        header_color:1,1,1,1
+        front_layer_color:app.theme_cls.primary_light if app.theme_cls.theme_style != "Dark" else app.theme_cls.primary_dark
+        MDBackdropBackLayer:
+            MDBoxLayout:
+                spacing:15
+                padding: ('0dp', '0dp', '10dp', '0dp')
+                MDNavigationRail:
+                    radius:[0,25,0,0]
+                    text_color_item_normal:[1,1,1,1] if app.theme_cls.theme_style == "Dark" else [0,0,0,1]
+                    text_color_item_active:[1,1,1,1] if app.theme_cls.theme_style == "Dark" else [0,0,0,1]
+                    icon_color_item_normal:[1,1,1,1] if app.theme_cls.theme_style == "Dark" else [0,0,0,1]
+                    icon_color_item_active:[1,1,1,1] if app.theme_cls.theme_style == "Dark" else [0,0,0,1]
+                    md_bg_color:app.theme_cls.bg_dark
+                    MDNavigationRailItem:
+                        id:btn1 
+                        text: app.language['en']['main_btn1'] if  app.app_language == 'en' else app.language['rus']['main_btn1']
+                        icon: "home"
+                        on_release:app.add(True,'home')
+                    MDNavigationRailItem:
+                        id:btn2
+                        text: app.language['en']['main_btn2'] if  app.app_language == 'en' else app.language['rus']['main_btn2']
+                        icon: "account"
+                        on_release:app.add(True,'account')
+                    MDNavigationRailItem:
+                        id:btn3
+                        text: app.language['en']['main_btn3'] if  app.app_language == 'en' else app.language['rus']['main_btn3']
+                        icon: "account-group"
+                        on_release: app.add(True,'сontacts')
+                    MDNavigationRailItem:
+                        id:btn4
+                        text: app.language['en']['main_btn4'] if  app.app_language == 'en' else app.language['rus']['main_btn4']
+                        icon: "cog"         
+                        on_release:
+                            app.add(True,'setting')
+                    MDScreen:
+                        size_hint_y: None
+                        height: 45
+                MDBoxLayout:        
+                    id:back
+
+        MDBackdropFrontLayer:
+            id:front
+            orientation: 'vertical'
+            padding: '5dp'

@@ -10,7 +10,6 @@ from kivy.uix.label import Label
 from kivy.core.window import Window
 
 sys = {'mes':[],'connect':False}
-connection = True
 
 class MainApp(MDApp):
     app_language = 'en'
@@ -157,4 +156,6 @@ class MainApp(MDApp):
 
     def on_start(self):
         main.ids.backdrop.close()
-MainApp().run()
+
+if __name__ == '__main__':
+    MainApp().run()
